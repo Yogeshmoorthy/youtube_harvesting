@@ -88,7 +88,7 @@ def get_playlist(id,api_key):
 def get_video(playlist_df):
 #     global response
     video_data={}
-    video_df = pd.DataFrame(columns=['video_id','playlist_id','video_title','video_description','published','view_count','like_count','fovourite_count','comment_count','thumbnail','caption'])
+    video_df = pd.DataFrame(columns=['video_id','playlist_id','video_title','video_description','published','view_count','like_count','favourite_count','comment_count','thumbnail','caption'])
     for pid in playlist_df['playlist_id']:
         youtube=build('youtube','v3',developerKey=api_key)
         request = youtube.playlistItems().list(part="snippet,status,contentDetails",playlistId=pid)
@@ -121,9 +121,9 @@ def get_video(playlist_df):
                 except KeyError:
                     video_data['like_count']='NaN'
                 try:
-                    video_data['fovourite_count']=vid_response['items'][0]['statistics']['favoriteCount']
+                    video_data['favourite_count']=vid_response['items'][0]['statistics']['favoriteCount']
                 except KeyError:
-                    video_data['fovourite_count']='NaN'
+                    video_data['favourite_count']='NaN'
                 try:
                     video_data['comment_count']=vid_response['items'][0]['statistics']['commentCount']
                 except KeyError:
@@ -173,9 +173,9 @@ def get_video(playlist_df):
                     except KeyError:
                         video_data['like_count']='NaN'
                     try:
-                        video_data['fovourite_count']=vid_response['items'][0]['statistics']['favoriteCount']
+                        video_data['favourite_count']=vid_response['items'][0]['statistics']['favoriteCount']
                     except KeyError:
-                        video_data['fovourite_count']='NaN'
+                        video_data['favourite_count']='NaN'
                     try:
                         video_data['comment_count']=vid_response['items'][0]['statistics']['commentCount']
                     except KeyError:
